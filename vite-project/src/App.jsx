@@ -3,15 +3,16 @@ import axios from "axios";
 import "./App.css";
 
 function App() {
-  const [name, setName] = useState("");
   const [datas, setDatas] = useState();
   const NameRef = useRef();
   const handleSubmit = async (e) => {
-    const names = NameRef.current.value;
-    setName(names);
     e.preventDefault();
+    const names = NameRef.current.value;
+
     try {
-      const res = await axios.post("http://localhost:8000/leap", { name });
+      const res = await axios.post("http://localhost:8000/leap", {
+        name: names,
+      });
       if (res) {
         setDatas(res.data.message);
       }
@@ -23,7 +24,7 @@ function App() {
   return (
     <>
       <form>
-        <label id="userName">UserName</label>
+        <label htmlFor="userName">UserName</label>
         <input type="text" id="userName" ref={NameRef} />
         <button onClick={handleSubmit}>Submit</button>
       </form>
