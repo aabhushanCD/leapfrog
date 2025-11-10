@@ -13,9 +13,13 @@ const PORT = 8000;
 app.use("/leap", (req, res) => {
   try {
     const { name } = req.body;
-
+    if (name === "") {
+      return res.status(404).json({ message: "please enter name" });
+    }
     return res.status(200).json({ message: `Welcome,` + name });
-  } catch (error) {}
+  } catch (error) {
+    console.error("error", error.message);
+  }
 });
 
 app.listen(PORT, () => {

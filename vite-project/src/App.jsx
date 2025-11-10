@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useNavigate } from "react";
 import axios from "axios";
 import "./App.css";
 
@@ -12,10 +12,9 @@ function App() {
     e.preventDefault();
     try {
       const res = await axios.post("http://localhost:8000/leap", { name });
-      if (res.status === "200") {
+      if (res) {
         setDatas(res.data.message);
       }
-      console.log(res.data.message);
     } catch (error) {
       console.error("error in sending request");
     }
@@ -29,11 +28,9 @@ function App() {
         <button onClick={handleSubmit}>Submit</button>
       </form>
 
-      {datas && (
-        <div>
-          <p>{datas}</p>
-        </div>
-      )}
+      <div className="card">
+        <p>{datas}</p>
+      </div>
     </>
   );
 }
